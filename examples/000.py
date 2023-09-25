@@ -9,6 +9,7 @@ from graphics_maker import (
     LERP,
     EASE_IN_OUT_ELASTIC,
     EASE_OUT_ELASTIC,
+    GIF_TYPE
 )
 
 

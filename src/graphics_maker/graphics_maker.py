@@ -7,23 +7,39 @@ from .object import Object, CIRCLE_TYPE, RECT_TYPE, POLY_TYPE, CUSTOM_TYPE
 from .utils import *
 
 
+MP4_TYPE = "mp4"
+GIF_TYPE = "gif"
+
+VALID_OUTPUT_TYPES = [MP4_TYPE, GIF_TYPE]
+
+
 class GraphicsMaker:
     animation_name = ""
     screen_width = 0
     screen_height = 0
     fps = 60
     output_dir = "./outputs/"
+    output_type = ""
     objects = {}
     timeline = {}
 
     def __init__(
-        self, name: str, w: int, h: int, fps: int = 60, output_dir: str = "./outputs/"
+        self,
+        name: str,
+        w: int,
+        h: int,
+        fps: int = 60,
+        output_dir: str = "./outputs/",
+        output_type: str = MP4_TYPE,
     ) -> None:
         self.animation_name = name
         self.screen_width = w
         self.screen_height = h
         self.fps = fps
         self.output_dir = output_dir
+        if not valid_output_type(output_type):
+            sys.exit(f"invalid output type must be: {VALID_OUTPUT_TYPES}")
+        self.output_type = output_type
 
     def add_object(self, object: Object) -> None:
         if object.name in self.objects:
@@ -250,4 +266,17 @@ class GraphicsMaker:
                 duration = a.end_time
 
         clip = VideoClip(self._make_frame_func(), duration=duration + 1)
-        clip.write_videofile(f"{self.output_dir}{self.animation_name}.mp4", fps=self.fps)
+        if self.output_type == MP4_TYPE:
+            clip.write_videofile(
+                f"{self.output_dir}{self.animation_name}.{self.output_type}",
+                fps=self.fps,
+            )
+        if self.output_type == GIF_TYPE:
+            clip.write_gif(
+                f"{self.output_dir}{self.animation_name}.{self.output_type}",
+                fps=self.fps,
+            )
+
+
+def valid_output_type(output_type: str):
+    return output_type in VALID_OUTPUT_TYPES
