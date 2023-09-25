@@ -44,6 +44,6 @@ The following steps should be taken to create an animation:
 
 Example programs using the lib are in `examples/`. Feel free to run it locally and generate the videos! But here they are as well:
 
-![alt text](https://raw.githubusercontent.com/davidoberholzer/graphics-maker/master/examples/vids/hexes.mp4)
-![alt text](https://raw.githubusercontent.com/davidoberholzer/graphics-maker/master/examples/vids/blinds.mp4)
-![alt text](https://raw.githubusercontent.com/davidoberholzer/graphics-maker/master/examples/vids/test.mp4)
+https://raw.githubusercontent.com/davidoberholzer/graphics-maker/master/examples/vids/hexes.mp4
+https://raw.githubusercontent.com/davidoberholzer/graphics-maker/master/examples/vids/blinds.mp4
+https://raw.githubusercontent.com/davidoberholzer/graphics-maker/master/examples/vids/test.mp4
