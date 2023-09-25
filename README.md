@@ -17,9 +17,10 @@ Install the package in your python environment:
 
 The following steps should be taken to create an animation:
 
-NOTE: ALL LOCATION/DIMENSION BASED VALUES SHOULD BE GIVEN AS PERCENTAGES OF THE VIDEO DIMENSIONS.
+*NOTE: ALL LOCATION/DIMENSION BASED VALUES SHOULD BE GIVEN AS PERCENTAGES OF THE VIDEO DIMENSIONS.*
 
 1. Instantiate an instance of `GraphicsMaker` with the desired settings.
+
 | Argument    | Description                                                |
 |-------------|------------------------------------------------------------|
 | name        | File name                                                  |
@@ -43,6 +44,6 @@ NOTE: ALL LOCATION/DIMENSION BASED VALUES SHOULD BE GIVEN AS PERCENTAGES OF THE 
 
 Example programs using the lib are in `examples/`. Feel free to run it locally and generate the videos! But here they are as well:
 
-![alt text](https://raw.githubusercontent.com/davidoberholzer/graphics-maker/master/examples/vids/hexes.png)
-![alt text](https://raw.githubusercontent.com/davidoberholzer/graphics-maker/master/examples/vids/blinds.png)
-![alt text](https://raw.githubusercontent.com/davidoberholzer/graphics-maker/master/examples/vids/test.png)
+![alt text](https://raw.githubusercontent.com/davidoberholzer/graphics-maker/master/examples/vids/hexes.mp4)
+![alt text](https://raw.githubusercontent.com/davidoberholzer/graphics-maker/master/examples/vids/blinds.mp4)
+![alt text](https://raw.githubusercontent.com/davidoberholzer/graphics-maker/master/examples/vids/test.mp4)
