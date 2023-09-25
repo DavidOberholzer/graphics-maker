@@ -1,3 +1,5 @@
 env/
 outputs/
 __pycache__
+dist/
+*.egg-info

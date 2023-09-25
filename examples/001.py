@@ -1,7 +1,16 @@
-from graphics_maker import GraphicsMaker
-from object import Object, RECT_TYPE, POLY_TYPE
-from animation_data import AnimationData, LOCATION_AFFECT, ROTATION_AFFECT
-from utils import *
+import math
+
+from graphics_maker import (
+    GraphicsMaker,
+    Object,
+    RECT_TYPE,
+    POLY_TYPE,
+    AnimationData,
+    LOCATION_AFFECT,
+    ROTATION_AFFECT,
+    LERP,
+    EASE_OUT_ELASTIC,
+)
 
 AMOUNT = 10
 
@@ -66,7 +75,7 @@ def __main__():
             end_blinds_time + 2.2,
             end_blinds_time + 4.0,
             ROTATION_AFFECT,
-            rotation=math.pi/2,
+            rotation=math.pi / 2,
         )
     )
     maker.generate_animation()

@@ -1,7 +1,5 @@
 import sys
 
-from gizeh import Element
-
 CIRCLE_TYPE = "circle"
 RECT_TYPE = "rectangle"
 POLY_TYPE = "polygon"
@@ -65,7 +63,7 @@ class Object:
         if len(colour) > 3 or len(colour) == 0:
             sys.exit(f"object '{name}' colour should be a tuple of (r,g,b)")
         self.colour = colour
-        if self.custom_draw == None and objectType == CUSTOM_TYPE:
+        if custom_draw == None and objectType == CUSTOM_TYPE:
             sys.exit(f"object '{name}' custom_draw function required for custom type")
         self.custom_draw = custom_draw
 

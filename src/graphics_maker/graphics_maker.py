@@ -2,22 +2,28 @@ import gizeh
 import uuid
 from moviepy.editor import VideoClip
 
-from animation_data import *
-from object import Object, CIRCLE_TYPE, RECT_TYPE, POLY_TYPE, CUSTOM_TYPE
-from utils import *
+from .animation_data import *
+from .object import Object, CIRCLE_TYPE, RECT_TYPE, POLY_TYPE, CUSTOM_TYPE
+from .utils import *
 
 
 class GraphicsMaker:
     animation_name = ""
     screen_width = 0
     screen_height = 0
+    fps = 60
+    output_dir = "./outputs/"
     objects = {}
     timeline = {}
 
-    def __init__(self, name: str, w: int, h: int) -> None:
+    def __init__(
+        self, name: str, w: int, h: int, fps: int = 60, output_dir: str = "./outputs/"
+    ) -> None:
         self.animation_name = name
         self.screen_width = w
         self.screen_height = h
+        self.fps = fps
+        self.output_dir = output_dir
 
     def add_object(self, object: Object) -> None:
         if object.name in self.objects:
@@ -206,7 +212,7 @@ class GraphicsMaker:
         poly.draw(surface)
 
     def _make_custom(self, o: Object, surface: gizeh.Surface) -> None:
-        o.custom_draw(surface)
+        o.custom_draw(o, surface)
 
     def _make_frame_func(self) -> callable:
         def make_frame(t):
@@ -244,4 +250,4 @@ class GraphicsMaker:
                 duration = a.end_time
 
         clip = VideoClip(self._make_frame_func(), duration=duration + 1)
-        clip.write_videofile(f"./outputs/{self.animation_name}.mp4", fps=60)
+        clip.write_videofile(f"{self.output_dir}{self.animation_name}.mp4", fps=self.fps)
