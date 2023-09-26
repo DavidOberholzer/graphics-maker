@@ -9,6 +9,10 @@ It allows for simple shapes and transitions of location, rotation and scale.
 
 I was tired of building animations with other tools and getting choppy/unsatisfactory results. I'm also too cheap and lazy to pay for an expensive tool, and then have to learn all the intricacies. So I just made this for myself.
 
+# Dependencies:
+
+In order to use this package you need to have some libraries installed for libcairo2. Google what you need to install for your distro. Also for images we need PIL.
+
 # How to use:
 
 Install the package in your python environment:
@@ -33,6 +37,15 @@ The following steps should be taken to create an animation:
 2. Create and add Objects to the GraphicsMaker with the desired type, location, rotation, scale and colour.
 3. Add AnimationData instances to the GraphicsMaker for objects you'd like to animate within a given timeframe.
 4. Run `.generate_animation()` on the GraphicsMaker instance.
+
+# Supported object types
+
+1. Circle
+2. Rectangle
+3. Polygon
+4. Text
+5. Image
+6. Custom Draw (provide your own draw function)
 
 # TODO:
 

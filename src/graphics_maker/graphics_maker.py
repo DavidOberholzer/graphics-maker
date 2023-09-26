@@ -1,9 +1,18 @@
+import PIL
 import gizeh
 import uuid
 from moviepy.editor import VideoClip
 
 from .animation_data import *
-from .object import Object, CIRCLE_TYPE, RECT_TYPE, POLY_TYPE, CUSTOM_TYPE
+from .object import (
+    Object,
+    CIRCLE_TYPE,
+    RECT_TYPE,
+    POLY_TYPE,
+    TEXT_TYPE,
+    IMAGE_TYPE,
+    CUSTOM_TYPE,
+)
 from .utils import *
 
 
@@ -191,9 +200,9 @@ class GraphicsMaker:
         if o.is_gradient_colour:
             colour = self._get_gradient_colour(o)
         r = o.radius * self.screen_height * o.scale
-        circle = gizeh.circle(r, xy=xy, fill=colour)
-        circle = circle.rotate(o.rotation, xy)
-        circle.draw(surface)
+        gizeh.circle(r, fill=colour).translate(xy).scale(o.scale, center=xy).rotate(
+            o.rotation, xy
+        ).draw(surface)
 
     def _make_rectangle(self, o: Object, surface: gizeh.Surface) -> None:
         x, y = o.location
@@ -202,14 +211,11 @@ class GraphicsMaker:
         if o.is_gradient_colour:
             colour = self._get_gradient_colour(o)
         w, h = o.dimensions
-        rect = gizeh.rectangle(
+        gizeh.rectangle(
             w * self.screen_width,
             h * self.screen_height,
-            xy=xy,
             fill=colour,
-        )
-        rect = rect.rotate(o.rotation, xy)
-        rect.draw(surface)
+        ).translate(xy).scale(o.scale, center=xy).rotate(o.rotation, xy).draw(surface)
 
     def _make_polygon(self, o: Object, surface: gizeh.Surface) -> None:
         x, y = o.location
@@ -217,15 +223,40 @@ class GraphicsMaker:
         colour = o.colour
         if o.is_gradient_colour:
             colour = self._get_gradient_colour(o)
-        r = o.radius * self.screen_height * o.scale
-        poly = gizeh.regular_polygon(
+        r = o.radius * self.screen_height
+
+        gizeh.regular_polygon(
             r,
             o.points,
-            xy=xy,
             fill=colour,
-        )
-        poly = poly.rotate(o.rotation, xy)
-        poly.draw(surface)
+        ).translate(xy).scale(
+            o.scale, center=xy
+        ).rotate(o.rotation, xy).draw(surface)
+
+    def _make_text(self, o: Object, surface: gizeh.Surface) -> None:
+        x, y = o.location
+        xy = [x * self.screen_width, y * self.screen_height]
+        colour = o.colour
+        if o.is_gradient_colour:
+            colour = self._get_gradient_colour(o)
+        gizeh.text(
+            o.text, fontfamily=o.font_family, fontsize=o.font_size, fill=colour
+        ).translate(xy).scale(o.scale, center=xy).rotate(o.rotation, xy).draw(surface)
+
+    def _make_image(self, o: Object, surface: gizeh.Surface) -> None:
+        x, y = o.location
+        xy = [x * self.screen_width, y * self.screen_height]
+        w, h = o.dimensions
+        w = w * self.screen_width
+        h = h * self.screen_height
+        image = gizeh.ImagePattern(o.image_array, pixel_zero=(w / 2, h / 2))
+        gizeh.rectangle(
+            w,
+            h,
+            fill=image,
+        ).translate(xy).scale(
+            o.scale, center=xy
+        ).rotate(o.rotation, xy).draw(surface)
 
     def _make_custom(self, o: Object, surface: gizeh.Surface) -> None:
         o.custom_draw(o, surface)
@@ -252,6 +283,10 @@ class GraphicsMaker:
                     self._make_rectangle(o, surface)
                 if o.objectType == POLY_TYPE:
                     self._make_polygon(o, surface)
+                if o.objectType == TEXT_TYPE:
+                    self._make_text(o, surface)
+                if o.objectType == IMAGE_TYPE:
+                    self._make_image(o, surface)
                 if o.objectType == CUSTOM_TYPE:
                     self._make_custom(o, surface)
             return surface.get_npimage()
