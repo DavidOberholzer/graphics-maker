@@ -2,10 +2,12 @@ from graphics_maker import (
     GraphicsMaker,
     Object,
     TEXT_TYPE,
+    RECT_TYPE,
     IMAGE_TYPE,
     AnimationData,
     SCALE_AFFECT,
     EASE_IN_OUT_ELASTIC,
+    INSTANT,
 )
 
 SCREEN_WIDTH = 1920
@@ -35,6 +37,21 @@ def main():
 
     maker.add_to_timeline(
         AnimationData("text", EASE_IN_OUT_ELASTIC, 0.4, 1.2, SCALE_AFFECT, scale=1.0)
+    )
+
+    maker.add_object(
+        Object(
+            "square",
+            RECT_TYPE,
+            dimensions=(0.05, 0.025),
+            location=(0.3, 0.5),
+            scale=0.0001,
+            colour=(0.5,0.2,0.2)
+        )
+    )
+
+    maker.add_to_timeline(
+        AnimationData("square", INSTANT, 1.5, 1.6, SCALE_AFFECT, scale=1.0)
     )
 
     maker.generate_animation()

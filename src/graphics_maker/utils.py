@@ -1,5 +1,6 @@
 import math
 
+INSTANT = "instant"
 LERP = "linear"
 EASE_IN_SINE = "ease_in_sine"
 EASE_OUT_SINE = "ease_out_sine"
@@ -38,6 +39,8 @@ def valid_curve(curve: str) -> bool:
 
 
 def interpolate_value(curve: str, v0: float, v1: float, t: float):
+    if curve == INSTANT:
+        return v1
     if curve == LERP:
         return lerp(v0, v1, t)
     if curve == EASE_IN_SINE:
